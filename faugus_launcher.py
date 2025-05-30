@@ -132,9 +132,7 @@ def get_desktop_dir():
 desktop_dir = get_desktop_dir()
 
 LOCALE_DIR = (
-    PathManager.system_data('locale')
-    if os.path.isdir(PathManager.system_data('locale'))
-    else os.path.join(os.path.dirname(__file__), 'locale')
+    os.path.join(os.path.dirname(__file__), 'share/locale')
 )
 
 locale.setlocale(locale.LC_ALL, '')
