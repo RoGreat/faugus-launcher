@@ -9,6 +9,7 @@ import sys
 import gettext
 import locale
 from pathlib import Path
+from importlib import resources
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gio
@@ -35,15 +36,10 @@ class PathManager:
 
     @staticmethod
     def get_icon(icon_name):
-        icon_paths = [
-            PathManager.user_data('icons', icon_name),
-            PathManager.system_data('icons/hicolor/256x256/apps', icon_name),
-            PathManager.system_data('icons', icon_name)
-        ]
-        for path in icon_paths:
-            if Path(path).exists():
-                return path
-        return icon_paths[-1]  # Fallback
+        with resources.path('icons.hicolor.256x256.apps', icon_name) as fs:
+            result = fs.as_posix()
+            print(result)
+        return result
 
 GITHUB_API_URL = "https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases"
 STEAM_COMPATIBILITY_PATH = PathManager.user_data("Steam/compatibilitytools.d")
@@ -56,11 +52,7 @@ faugus_session = False
 if "session" in sys.argv:
     faugus_session = True
 
-LOCALE_DIR = (
-    PathManager.system_data('locale')
-    if os.path.isdir(PathManager.system_data('locale'))
-    else os.path.join(os.path.dirname(__file__), 'locale')
-)
+LOCALE_DIR = os.path.join(os.path.dirname(__file__), 'locale')
 
 locale.setlocale(locale.LC_ALL, '')
 lang = locale.getlocale()[0]

@@ -7,7 +7,7 @@ foreach lang : languages
       lang / 'faugus-launcher.mo',
       lang / 'faugus-proton-manager.mo',
       lang / 'faugus-run.mo',
-      subdir: 'share' / 'locale' / lang / 'LC_MESSAGES',
+      subdir: 'locale' / lang / 'LC_MESSAGES',
     )
   endif
 endforeach

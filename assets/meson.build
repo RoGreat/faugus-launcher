@@ -1,7 +1,7 @@
 py.install_sources(
   'faugus-banner.png',
   'faugus-notification.ogg',
-  subdir: 'share' / meson.project_name(),
+  subdir: meson.project_name(),
 )
 
 py.install_sources(
@@ -10,7 +10,7 @@ py.install_sources(
   'faugus-ea.png',
   'faugus-epic-games.png',
   'faugus-ubisoft-connect.png',
-  subdir: 'share' / 'icons' / 'hicolor' / '256x256' / 'apps',
+  subdir: 'icons' / 'hicolor' / '256x256' / 'apps',
 )
 
 py.install_sources(
@@ -20,5 +20,5 @@ py.install_sources(
   'faugus-play-symbolic.svg',
   'faugus-settings-symbolic.svg',
   'faugus-stop-symbolic.svg',
-  subdir: 'share' / 'icons' / 'hicolor' / 'scalable' / 'actions',
+  subdir: 'icons' / 'hicolor' / 'scalable' / 'actions',
 )

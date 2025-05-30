@@ -12,6 +12,7 @@ import re
 import os
 import gettext
 import locale
+from importlib import resources
 
 class PathManager:
     @staticmethod
@@ -44,15 +45,10 @@ class PathManager:
 
     @staticmethod
     def get_icon(icon_name):
-        icon_paths = [
-            PathManager.user_data('icons', icon_name),
-            PathManager.system_data('icons/hicolor/256x256/apps', icon_name),
-            PathManager.system_data('icons', icon_name)
-        ]
-        for path in icon_paths:
-            if Path(path).exists():
-                return path
-        return icon_paths[-1]
+        with resources.path('icons.hicolor.256x256.apps', icon_name) as fs:
+            result = fs.as_posix()
+            print(result)
+        return result
 
     @staticmethod
     def find_library(lib_name):
@@ -83,11 +79,7 @@ def remove_ansi_escape(text):
     ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
     return ansi_escape.sub('', text)
 
-LOCALE_DIR = (
-    PathManager.system_data('locale')
-    if os.path.isdir(PathManager.system_data('locale'))
-    else os.path.join(os.path.dirname(__file__), 'locale')
-)
+LOCALE_DIR = os.path.join(os.path.dirname(__file__), 'locale')
 
 locale.setlocale(locale.LC_ALL, '')
 lang = locale.getlocale()[0]

@@ -18,6 +18,7 @@ import tarfile
 import gettext
 import locale
 from pathlib import Path
+from importlib import resources
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -58,15 +59,10 @@ class PathManager:
 
     @staticmethod
     def get_icon(icon_name):
-        icon_paths = [
-            PathManager.user_data('icons', icon_name),
-            PathManager.system_data('icons/hicolor/256x256/apps', icon_name),
-            PathManager.system_data('icons', icon_name)
-        ]
-        for path in icon_paths:
-            if Path(path).exists():
-                return path
-        return icon_paths[-1]  # Fallback
+        with resources.path('icons.hicolor.256x256.apps', icon_name) as fs:
+            result = fs.as_posix()
+            print(result)
+        return result
 
 faugus_banner = PathManager.system_data('faugus-launcher/faugus-banner.png')
 faugus_notification = PathManager.system_data('faugus-launcher/faugus-notification.ogg')
@@ -131,9 +127,7 @@ def get_desktop_dir():
 
 desktop_dir = get_desktop_dir()
 
-LOCALE_DIR = (
-    os.path.join(os.path.dirname(__file__), 'share/locale')
-)
+LOCALE_DIR = os.path.join(os.path.dirname(__file__), 'locale')
 
 locale.setlocale(locale.LC_ALL, '')
 lang = locale.getlocale()[0]

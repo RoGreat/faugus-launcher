@@ -25,12 +25,7 @@ py.install_sources(
   'faugus-shortcut.desktop',
   'faugus-run.desktop',
   'faugus-proton-manager.desktop',
-  subdir: 'share' / 'applications',
-)
-
-py.install_sources(
-  'LICENSE',
-  subdir: 'share' / 'licenses' / meson.project_name(),
+  subdir: 'applications',
 )
 
 gnome.post_install(
