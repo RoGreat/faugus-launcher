@@ -85,9 +85,5 @@ def check_for_updates():
         else:
             print("Components are up to date.", flush=True)
 
-def main():
-    # Execute the update check
-    check_for_updates()
-
-if __name__ == "__main__":
-    main()
+# Execute the update check
+check_for_updates()

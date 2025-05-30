@@ -357,11 +357,7 @@ def apply_dark_theme():
     if is_dark_theme:
         Gtk.Settings.get_default().set_property("gtk-application-prefer-dark-theme", True)
 
-def main():
-    apply_dark_theme()
-    win = ProtonDownloader()
-    win.connect("destroy", Gtk.main_quit)
-    Gtk.main()
-
-if __name__ == "__main__":
-    main()
+apply_dark_theme()
+win = ProtonDownloader()
+win.connect("destroy", Gtk.main_quit)
+Gtk.main()
