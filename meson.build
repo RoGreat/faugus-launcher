@@ -6,6 +6,21 @@ project(
   license_files: 'LICENSE',
 )
 
+dependency('ayatana-appindicator3-0.1')
+dependency('gtk+-3.0')
+
+py = import('python').find_installation(
+  'python3',
+  modules: [
+    'filelock',
+    'pillow',
+    'psutil',
+    'PyGObject',
+    'requests',
+    'vdf',
+  ]
+).dependency()
+
 subdir('assets')
 subdir('languages')
 
