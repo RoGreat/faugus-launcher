@@ -64,11 +64,8 @@ sudo zypper --gpg-auto-import-keys install -y faugus-launcher
 
 ### Build from source
 ```
-meson setup builddir --prefix=/usr
-cd builddir
-ninja
-sudo ninja install
-sudo gtk-update-icon-cache /usr/share/icons/hicolor
+pip install build
+python -m build
 ```
 Dependencies:
 ```

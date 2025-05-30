@@ -8,33 +8,31 @@ project(
 
 py = import('python').find_installation()
 fs = import('fs')
+gnome = import ('gnome')
 
 subdir('assets')
 subdir('languages')
 
-foreach file : [
-  ['faugus_launcher.py', 'faugus-launcher'],
-  ['faugus_run.py', 'faugus-run'],
-  ['faugus_proton_manager.py', 'faugus-proton-manager'],
-  ['faugus_components.py', 'faugus-components']
-]
-  install_data(
-    file[0],
-    install_dir: get_option('bindir'),
-    rename: file[1],
-    install_mode: ['rwxr-xr-x', 'root', 'root']
-  )
-endforeach
+py.install_sources(
+  'faugus_launcher.py',
+  'faugus_run.py',
+  'faugus_proton_manager.py',
+  'faugus_components.py',
+)
 
-install_data(
+py.install_sources(
   'faugus-launcher.desktop',
   'faugus-shortcut.desktop',
   'faugus-run.desktop',
   'faugus-proton-manager.desktop',
-  install_dir: get_option('datadir') / 'applications',
+  subdir: 'share' / 'applications',
 )
 
-install_data(
+py.install_sources(
   'LICENSE',
-  install_dir: get_option('datadir') / 'licenses' / meson.project_name(),
+  subdir: 'share' / 'licenses' / meson.project_name(),
+)
+
+gnome.post_install(
+  gtk_update_icon_cache: true
 )

@@ -1,13 +1,13 @@
 languages = fs.read('language-code').splitlines()
 
 foreach lang : languages
-  lang = lang.split(' ')[0]
+  lang = lang.split()[0]
   if fs.exists(lang)
-    install_data(
+    py.install_sources(
       lang / 'faugus-launcher.mo',
       lang / 'faugus-proton-manager.mo',
       lang / 'faugus-run.mo',
-      install_dir: get_option('datadir') / 'locale' / lang / 'LC_MESSAGES',
+      subdir: 'share' / 'locale' / lang / 'LC_MESSAGES',
     )
   endif
 endforeach
